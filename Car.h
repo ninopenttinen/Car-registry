@@ -6,7 +6,7 @@ class Car
 public:
 	Car();
 	Car(const string& manufacturer, const string& model, int manufacturingYear);
-	Car(const Car& car) = default;
+	Car(const Car& car);
 	~Car();
 
 	string getManufacturer() const;

@@ -7,7 +7,7 @@ class RegisteredCar final
 public:
 	RegisteredCar();
 	RegisteredCar(const string & manufacturer, const string & model, int manufacturingYear, const string& registrationNumber, int registrationYear);
-	RegisteredCar(const RegisteredCar & registeredCar) = default;
+	RegisteredCar(const RegisteredCar & registeredCar);
 	~RegisteredCar();
 
 	string getRegistrationNumber() const;

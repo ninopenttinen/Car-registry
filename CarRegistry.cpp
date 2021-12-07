@@ -18,6 +18,9 @@ void CarRegistry::removeCar(const string& searchString)
         {
             if (car->searchMatches(searchString)) {
                 matchFound = true;
+                for (const auto& observer : carRemovalObservers) {
+                    observer(*car);
+                }
                 return true;
             } else {
                 return false;
@@ -36,6 +39,9 @@ void CarRegistry::modifyCarInfo(const string& searchString, const CarInfo& field
         if (car->searchMatches(searchString)) {
             matchFound = true;
             car->updateInfo(fieldToUpdate, updatedInfo);
+            for (const auto& observer : carModificationObservers) {
+                observer(*car);
+            }
         }
     }
     if (!matchFound) {
@@ -69,12 +75,19 @@ void CarRegistry::printRegistry() const
 
 void CarRegistry::printStatistics() const
 {
+    int totalCars = RegisteredCar::getTotalCars();
+    int totalRegisteredCars = RegisteredCar::getTotalRegisteredCars();
     cout << "Registry statistics:" << endl;
-    cout << "Registered cars: " << RegisteredCar::getTotalRegisteredCars() << endl;
-    cout << "Unregistered cars: " << Car::getTotalCars() << endl;
+    cout << "Registered cars: " << totalRegisteredCars << endl;
+    cout << "Unregistered cars: " << totalCars - totalRegisteredCars << endl;
 }
 
-void CarRegistry::registerListener(function<void(const string&, const string&)> listener)
+void CarRegistry::registerModificationListener(function<void(const Car&)> listener)
 {
     carModificationObservers.push_back(listener);
+}
+
+void CarRegistry::registerRemovalListener(function<void(const Car&)> listener)
+{
+    carRemovalObservers.push_back(listener);
 }

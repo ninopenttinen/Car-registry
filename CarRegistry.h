@@ -15,7 +15,8 @@ public:
 	void printRegistry() const;
 	void printStatistics() const;
 
-	void registerListener(function<void(const string&, const string&)> listener);
+	void registerModificationListener(function<void(const Car&)> listener);
+	void registerRemovalListener(function<void(const Car&)> listener);
 
 private:
 	static shared_ptr<CarRegistry> instance;
@@ -25,7 +26,7 @@ private:
 
 	vector<shared_ptr<Car>> cars_;
 
-	vector<function<void(const string&, const string&)>> carModificationObservers;
-	vector<function<void()>> carRemovalObservers;
+	vector<function<void(const Car&)>> carModificationObservers;
+	vector<function<void(const Car&)>> carRemovalObservers;
 };
 

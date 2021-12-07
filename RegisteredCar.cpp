@@ -14,6 +14,12 @@ RegisteredCar::RegisteredCar(const string& manufacturer, const string& model, in
 	totalRegisteredCars_++;
 }
 
+RegisteredCar::RegisteredCar(const RegisteredCar& registeredCar)
+	: Car{ registeredCar }, registrationNumber_{ registeredCar.registrationNumber_ }, registrationYear_{ registeredCar.registrationYear_ }
+{
+	totalRegisteredCars_++;
+}
+
 RegisteredCar::~RegisteredCar()
 {
 	totalRegisteredCars_--;

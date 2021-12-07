@@ -112,6 +112,7 @@ void menu()
 
 	cout << ">> Car registry service <<" << endl << endl;
 
+	cout << "--------------------" << endl;
 	cout << "1. Add car to registry" << endl;
 	cout << "2. Search car" << endl;
 	cout << "3. Remove car from registry" << endl;
@@ -123,7 +124,7 @@ void menu()
 	cout << "--------------------" << endl;
 
 	do {
-		cout << ">> ";
+		cout << endl << ">> ";
 		getline(cin, input);
 
 		switch (input[0]) {
@@ -157,12 +158,17 @@ void menu()
 
 int main()
 {
-	//auto kuuntelija = [](const string& henkiloNimi, int uusiIka) {
-	//	cout << "Henkilon " << henkiloNimi << " ika muutettu." << endl;
-	//	cout << "Uusi ika: " << uusiIka << endl;
-	//};
-	//
-	//HenkiloTiedot::getInstance()->rekisteroiKuuntelija(kuuntelija);
+	auto modifyListener = [](const Car& car) {
+		cout << "Modified:" << endl;
+		car.printInfo();
+	};
+	CarRegistry::getInstance()->registerModificationListener(modifyListener);
+
+	auto removalListener = [](const Car& car) {
+		cout << "Removed:" << endl;
+		car.printInfo();
+	};
+	CarRegistry::getInstance()->registerRemovalListener(removalListener);
 
 	menu();
 	return 0;

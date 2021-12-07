@@ -14,6 +14,12 @@ Car::Car(const string& manufacturer, const string& model, int manufacturingYear)
 	totalCars_++;
 }
 
+Car::Car(const Car& car)
+	: manufacturer_{ car.manufacturer_ }, model_{ car.model_ }, manufacturingYear_{ car.manufacturingYear_ }
+{
+	totalCars_++;
+}
+
 Car::~Car()
 {
 	totalCars_--;
