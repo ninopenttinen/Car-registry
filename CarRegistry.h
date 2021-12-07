@@ -15,6 +15,7 @@ public:
 	void removeCar(const string& searchString);
 	void modifyCarInfo(const string& searchString, const CarInfo& fieldToUpdate, const string& updatedInfo);
 	void searchCar(const string& searchString);
+	void sortCars(function<bool(const shared_ptr<Car>&, const shared_ptr<Car>&)> comparator);
 	void printRegistry() const;
 	void printStatistics() const;
 	void notifyObservers(const string& msg, const Car& car) const;

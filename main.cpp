@@ -106,6 +106,46 @@ void modifyCarInfo()
 	CarRegistry::getInstance()->modifyCarInfo(searchString, fieldToUpdate, updatedInfo);
 }
 
+void sortCars()
+{
+	string input;
+	cout << "Sort cars by:" << endl;
+	cout << "1. Manufacturer" << endl;
+	cout << "2. Model" << endl;
+	cout << "3. Manufacturing year" << endl;
+	cout << "b. Back" << endl;
+	cout << ">> ";
+	getline(cin, input);
+
+	switch (input[0]) {
+	case('1'):
+		CarRegistry::getInstance()->sortCars(
+			[](const shared_ptr<Car>& a, const shared_ptr<Car>& b) {
+				return a->getManufacturer() < b->getManufacturer();
+			});
+		break;
+
+	case('2'):
+		CarRegistry::getInstance()->sortCars(
+			[](const shared_ptr<Car>& a, const shared_ptr<Car>& b) {
+				return a->getModel() < b->getModel();
+			});
+		break;
+
+	case('3'):
+		CarRegistry::getInstance()->sortCars(
+			[](const shared_ptr<Car>& a, const shared_ptr<Car>& b) {
+				return a->getManufacturingYear() < b->getManufacturingYear();
+			});
+		break;
+
+	case('b'): 
+		return;
+	default:
+		cout << "Invalid input" << endl;
+	}
+}
+
 void menu()
 {
 	string input;
@@ -141,6 +181,7 @@ void menu()
 			modifyCarInfo();
 			break;
 		case '5':
+			sortCars();
 			break;
 		case '6':
 			CarRegistry::getInstance()->printRegistry();

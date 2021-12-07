@@ -61,6 +61,11 @@ void CarRegistry::searchCar(const string& searchString)
     }
 }
 
+void CarRegistry::sortCars(function<bool(const shared_ptr<Car>&, const shared_ptr<Car>&)> comparator)
+{
+    sort(cars_.begin(), cars_.end(), comparator);
+}
+
 void CarRegistry::printRegistry() const
 {
     for (size_t i = 0; i < cars_.size(); i++) {
@@ -73,7 +78,7 @@ void CarRegistry::printStatistics() const
 {
     int totalCars = RegisteredCar::getTotalCars();
     int totalRegisteredCars = RegisteredCar::getTotalRegisteredCars();
-    cout << "Registry statistics:" << endl;
+    cout << "Registry statistics" << endl;
     cout << "Registered cars: " << totalRegisteredCars << endl;
     cout << "Unregistered cars: " << totalCars - totalRegisteredCars << endl;
 }
