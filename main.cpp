@@ -158,17 +158,11 @@ void menu()
 
 int main()
 {
-	auto modifyListener = [](const Car& car) {
-		cout << "Modified:" << endl;
+	auto listener = [](const string& msg, const Car& car) {
+		cout << endl << msg << endl;
 		car.printInfo();
 	};
-	CarRegistry::getInstance()->registerModificationListener(modifyListener);
-
-	auto removalListener = [](const Car& car) {
-		cout << "Removed:" << endl;
-		car.printInfo();
-	};
-	CarRegistry::getInstance()->registerRemovalListener(removalListener);
+	CarRegistry::getInstance()->registerListener(listener);
 
 	menu();
 	return 0;
